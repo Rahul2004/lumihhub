@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumina Studio | Creative All-in-One Suite</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="themed.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.0"></script>
+  </head>
+  <body>
+    <!-- Navbar Enhancement -->
+    <nav class="main-nav">
+      <div class="logo">
+        <i class="ri-pulse-line"></i>
+        <span>Lumina Hub</span>
+      </div>
+      <div class="nav-links">
+        <button class="nav-btn active" data-page="editor">
+          <i class="ri-image-edit-line"></i>
+          Editor
+        </button>
+        <button class="nav-btn" data-page="converter">
+          <i class="ri-tools-fill"></i>
+          Tools Hub
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Image Editor View -->
+      <section id="editor-page" class="page-view active">
+        <div class="left">
+          <div class="toolbar">
+            <div class="btn-group">
+              <label for="image-input" class="btn btn-accent">
+                <i class="ri-upload-2-fill"></i>
+                Upload Image
+                <input type="file" id="image-input" accept="image/*" hidden />
+              </label>
+            </div>
+            <div class="btn-links">
+              <div class="download-container">
+                <select id="format-select">
+                  <option value="png">PNG</option>
+                  <option value="jpeg">JPG</option>
+                  <option value="pdf">PDF</option>
+                </select>
+                <button class="btn btn-accent" id="download-btn">
+                  <i class="ri-save-3-fill"></i>
+                  Export Work
+                </button>
+              </div>
+            </div>
+            <button class="btn btn-danger" id="reset-btn">
+              <i class="ri-restart-line"></i>
+              Full Reset
+            </button>
+          </div>
+          <div class="workspace">
+            <div class="placeholder">
+              <i class="ri-magic-line"></i>
+              <p>Magic happens when you load an image</p>
+            </div>
+            <canvas id="image-canvas"></canvas>
+          </div>
+        </div>
+        <div class="right">
+          <h2>
+            <i class="ri-equalizer-line"></i>
+            Fine Correction
+          </h2>
+          <div class="filters-scroll" id="filters-container">
+            <!-- Dynamic Inject -->
+          </div>
+        </div>
+      </section>
+
+      <!-- All-in-One Tools Hub View -->
+      <section id="converter-page" class="page-view">
+        <div class="hub-header" style="text-align: center; margin-bottom: 3rem;">
+          <h1 style="font-size: 2.8rem; font-weight: 700;">Creative Toolbox</h1>
+          <p style="color: var(--color-text-secondary);">Enterprise-grade file processing and utility tools in your browser</p>
+        </div>
+        <div class="grid-container">
+          <!-- Image Converters -->
+          <div class="c-card" data-type="jpg-to-png">
+            <i class="ri-image-2-fill"></i>
+            <h3>JPG to PNG</h3>
+            <p>Convert with transparency</p>
+          </div>
+          <div class="c-card" data-type="png-to-jpg">
+            <i class="ri-image-fill"></i>
+            <h3>PNG to JPG</h3>
+            <p>Flatten image for smaller size</p>
+          </div>
+          <!-- Document & PDF -->
+          <div class="c-card" data-type="pdf-to-word">
+            <i class="ri-file-word-2-fill"></i>
+            <h3>PDF to Word</h3>
+            <p>Smart document transformation</p>
+          </div>
+          <div class="c-card" data-type="image-to-pdf">
+            <i class="ri-file-pdf-2-fill"></i>
+            <h3>Image to PDF</h3>
+            <p>Combine multiple images easily</p>
+          </div>
+          <div class="c-card" data-type="pdf-to-jpg">
+            <i class="ri-gallery-fill"></i>
+            <h3>PDF to Image</h3>
+            <p>Export all pages to high-res JPG</p>
+          </div>
+          <div class="c-card" data-type="pdf-merge">
+            <i class="ri-merge-cells-horizontal"></i>
+            <h3>Merge PDF</h3>
+            <p>Combine multiple PDF files</p>
+          </div>
+          <!-- Data & Dev Tools -->
+          <div class="c-card" data-type="json-to-csv">
+            <i class="ri-table-fill"></i>
+            <h3>JSON to CSV</h3>
+            <p>Format data for Excel/Sheets</p>
+          </div>
+          <div class="c-card" data-type="csv-to-json">
+            <i class="ri-code-s-slash-line"></i>
+            <h3>CSV to JSON</h3>
+            <p>Transform table data to code</p>
+          </div>
+          <!-- Generator & Utility -->
+          <div class="c-card" data-type="qr-generator">
+            <i class="ri-qr-code-line"></i>
+            <h3>QR Generator</h3>
+            <p>Convert links to scanable codes</p>
+          </div>
+          <div class="c-card" data-type="color-palette">
+            <i class="ri-palette-line"></i>
+            <h3>Color Palette</h3>
+            <p>Extract colors from any image</p>
+          </div>
+          <div class="c-card" data-type="image-compress">
+            <i class="ri-folder-reduce-line"></i>
+            <h3>Compressor</h3>
+            <p>Reduce image size without loss</p>
+          </div>
+          <div class="c-card" data-type="bg-remover">
+            <i class="ri-magic-fill"></i>
+            <h3>Magic Eraser</h3>
+            <p>AI-assisted background removal</p>
+          </div>
+          <div class="c-card" data-type="base64-tool">
+            <i class="ri-code-box-line"></i>
+            <h3>Base64 Logic</h3>
+            <p>File and string encoding</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Professional Modal Overlays -->
+    <div class="modal-overlay" id="tool-modal">
+      <div class="modal-pro">
+        <button class="close-modal" style="position: absolute; top: 25px; right: 25px; background: rgba(255,255,255,0.05); border: none; width: 40px; height: 40px; border-radius: 50%; color: white; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><i class="ri-close-line"></i></button>
+        <div id="modal-content-inject">
+          <!-- Dynamic Content -->
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
